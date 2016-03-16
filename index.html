@@ -41,15 +41,15 @@
 
             var webSocket;
             var messages = document.getElementById("messages");
-            var studentID = document.getElementById("studentID");
-            var sessionID = document.getElementById("sessionID");
+//            var studentID = document.getElementById("studentID").value;
+//            var sessionID = document.getElementById("sessionID").value;
 
             function enterQueue() {
-                webSocket.send("enterQueue#" + studentID + "#" + sessionID);
+                webSocket.send("enterQueue#" + document.getElementById("studentID").value + "#" + document.getElementById("sessionID").value)
             }
 
             function leaveQueue() {
-                webSocket.send("leaveQueue#" + studentID + "#" + sessionID);
+                webSocket.send("leaveQueue#" + document.getElementById("studentID").value + "#" + document.getElementById("sessionID").value)
             }
 
             function openSocket(){
