@@ -16,14 +16,14 @@ function sendPosition()
 
 function enterQueue()
 {
-    webSocket.send("enterQueue#" + document.getElementById("studentID").value
-        + "#" + document.getElementById("sessionID").value);
+    webSocket.send("enterQueue#" + document.getElementById("sessionID").value
+        + "#" + document.getElementById("studentID").value);
 }
 
 function leaveQueue()
 {
-    webSocket.send("leaveQueue#" + document.getElementById("studentID").value
-        + "#" + document.getElementById("sessionID").value);
+    webSocket.send("leaveQueue#" + document.getElementById("sessionID").value
+        + "#" + document.getElementById("studentID").value);
 }
 
 function getLabSize()
