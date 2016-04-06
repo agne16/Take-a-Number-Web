@@ -14,6 +14,11 @@ function sendPosition()
     + "#" + document.getElementById("classPosCol");
 }
 
+function sendPosition2(param)
+{
+    webSocket.send("classPos#" + document.getElementById("studentID").value + param);
+}
+
 function enterQueue()
 {
     webSocket.send("enterQueue#" + document.getElementById("sessionID").value
@@ -67,8 +72,8 @@ function openSocket()
     };
 
     //TODO put this somewhere else because the socket is not technically open yet
-    getLabSize(); // Ask the server what the size of the classroom is upon connecting
-    webSocket.send("identify#webpage"); //Tells the server that the connection is from a webpage
+    //getLabSize(); // Ask the server what the size of the classroom is upon connecting
+    //webSocket.send("identify#webpage"); //Tells the server that the connection is from a webpage
 }
 
 /**
