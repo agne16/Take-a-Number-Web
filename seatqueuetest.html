@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Take a Number</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" type="text/css" href="take-a-number.css">
+</head>
+<body>
+
+<h1>Take a Number</h1>
+<h5>
+    1. Click Open Connection <br>
+    2. Enter your StudentID and the provided SessionID <br>
+    3. Input Your Position in the Classroom (e.g. Row: 3 Column: 2) <br>
+    4. Click the Send Position button to confirm your seating position. <br>
+    5. Use the Enter and Leave Queue buttons as necessary
+</h5>
+
+
+<table id="buttonTable">
+</table>
+
+<div>
+StudentID:
+<input type="text" id="studentID"/>
+<br> SessionID:
+<input type="text" id="sessionID"/>
+<br><br> <u>Classroom Position</u> <br>
+Row: <input type="text" id="classPosRow"/>
+Column: <input type="text" id="classPosCol"/> <br>
+<br> Classroom Parameters:
+<div id="sizeParams"></div>
+<br>
+<!--<input type="text" id="messageinput"/>-->
+</div>
+<div>
+    <br>
+    <button type="button" onclick="enterQueue();">Enter Queue</button>
+    <button type="button" onclick="leaveQueue();">Leave Queue</button>
+    <br>
+    <button type="button" onclick="openSocket();myFunction();">Open Connection</button>
+    <button type="button" onclick="sendPosition();">Send Position</button>
+    <!--<button type="button" onclick="send();">Send</button>
+    <button type="button" onclick="closeSocket();">Close</button>-->
+</div>
+<!-- Server responses get written here -->
+<div id="messages"></div>
+
+<br>
+
+<script>
+function myFunction() {
+    var table = document.getElementById("buttonTable");
+    var numRows = 5;
+    var numCols = 8;
+    var divider = 4;
+    var seatNum = 1;
+    for (var i=0; i<numRows; i++){
+        var row = table.insertRow(i);
+        for (var j=0; j<numCols; j++){
+            var cell = row.insertCell(j);
+            if (j != divider) {
+                var temp = document.createElement("BUTTON");
+                temp.className = "button seatButton";
+                var t = document.createTextNode("Seat #" + seatNum);
+                temp.appendChild(t);
+                temp.onclick = function() {
+                    var q = "#" + i + "#" + j;
+                    sendPosition2(q);
+                }
+                cell.appendChild(temp);
+                seatNum++;
+            }
+            else {
+                var temp = "<spacer></spacer>";
+                cell.innerHTML = temp;
+            }
+        }
+    }
+}
+</script>
+
+<!-- Script to utilise the WebSocket -->
+<script type="text/javascript" src="Scripts/functions.js"></script>
+
+</body>
+</html>
