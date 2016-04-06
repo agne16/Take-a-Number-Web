@@ -16,7 +16,7 @@ function sendPosition()
 
 function sendPosition2(param)
 {
-    webSocket.send("classPos#" + document.getElementById("studentID").value + param);
+    webSocket.send("classPos#" + document.getElementById("studentID").value + "#" + document.getElementById("sessionID").value + param);
 }
 
 function enterQueue()

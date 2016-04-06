@@ -61,15 +61,16 @@ function myFunction() {
         for (var j=0; j<numCols; j++){
             var cell = row.insertCell(j);
             if (j != divider) {
-                var temp = document.createElement("BUTTON");
-                temp.className = "button seatButton";
-                var t = document.createTextNode("Seat #" + seatNum);
-                temp.appendChild(t);
-                temp.onclick = function() {
-                    var q = "#" + i + "#" + j;
-                    sendPosition2(q);
-                }
-                cell.appendChild(temp);
+                //var temp = document.createElement("BUTTON");
+                //temp.className = "button seatButton";
+                //var t = document.createTextNode("Seat #" + seatNum);
+                //temp.appendChild(t);
+                //var q = "#" + i + "#" + j;
+                //temp.onclick = function() {
+                //    sendPosition2(q);
+                //}
+                //cell.appendChild(temp);
+                cell.innerHTML = "<button class=\"button seatButton\" onclick=\"sendPosition2('" + "#" + i + "#" + j + "');\">" + "Seat #" + seatNum + "</button>";
                 seatNum++;
             }
             else {
