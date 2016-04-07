@@ -49,38 +49,6 @@ Column: <input type="text" id="classPosCol"/> <br>
 
 <br>
 
-<script>
-function myFunction() {
-    var table = document.getElementById("buttonTable");
-    var numRows = 5;
-    var numCols = 8;
-    var divider = 4;
-    var seatNum = 1;
-    for (var i=0; i<numRows; i++){
-        var row = table.insertRow(i);
-        for (var j=0; j<numCols; j++){
-            var cell = row.insertCell(j);
-            if (j != divider) {
-                //var temp = document.createElement("BUTTON");
-                //temp.className = "button seatButton";
-                //var t = document.createTextNode("Seat #" + seatNum);
-                //temp.appendChild(t);
-                //var q = "#" + i + "#" + j;
-                //temp.onclick = function() {
-                //    sendPosition2(q);
-                //}
-                //cell.appendChild(temp);
-                cell.innerHTML = "<button class=\"button seatButton\" onclick=\"sendPosition2('" + "#" + i + "#" + j + "');\">" + "Seat #" + seatNum + "</button>";
-                seatNum++;
-            }
-            else {
-                var temp = "<spacer></spacer>";
-                cell.innerHTML = temp;
-            }
-        }
-    }
-}
-</script>
 
 <!-- Script to utilise the WebSocket -->
 <script type="text/javascript" src="Scripts/functions.js"></script>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <title>Take a Number</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="take-a-number.css">
 </head>
+<body>
 
 <h1>Take a Number</h1>
 <h5>
@@ -16,7 +17,9 @@
     5. Use the Enter and Leave Queue buttons as necessary
 </h5>
 
-<body>
+
+<table id="buttonTable">
+</table>
 
 <div>
     StudentID:
@@ -43,6 +46,9 @@
 </div>
 <!-- Server responses get written here -->
 <div id="messages"></div>
+
+<br>
+
 
 <!-- Script to utilise the WebSocket -->
 <script type="text/javascript" src="Scripts/functions.js"></script>

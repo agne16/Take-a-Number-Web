@@ -8,15 +8,15 @@ var sessionID = document.getElementById("sessionID").value;
 
 function sendPosition()
 {
-    webSocket.send("classPos#" + document.getElementById("sessionID").value
+    webSocket.send("setPosition#" + document.getElementById("sessionID").value
         + "#" + document.getElementById("studentID").value
-        + "#" + document.getElementById("classPosRow").value)
-        + "#" + document.getElementById("classPosCol");
+        + "#c" + document.getElementById("classPosCol").value
+        + "r" + document.getElementById("classPosRow").value);
 }
 
 function sendPosition2(param)
 {
-    webSocket.send("classPos#" + document.getElementById("studentID").value + "#" + document.getElementById("sessionID").value + param);
+    webSocket.send("setPosition#" + document.getElementById("sessionId").value + "#" + document.getElementById("studentId").value + param);
 }
 
 function enterQueue()
@@ -33,7 +33,7 @@ function leaveQueue()
 
 function getLabSize()
 {
-    webSocket.send("getSize#" + document.getElementById("sessionID").value);
+    webSocket.send("getLayout#" + document.getElementById("sessionID").value);
 }
 
 function openSocket()
@@ -55,10 +55,12 @@ function openSocket()
         // For reasons I can't determine, onopen gets called twice
         // and the first time event.data is undefined.
         // Leave a comment if you know the answer.
-        if (event.data === undefined)
-            return;
+        //if (event.data === undefined)
+        //    return;
 
-        writeResponse(event.data);
+        writeResponse("Connected");
+        webSocket.send("identify#webpage#" + document.getElementById("studentID").value); //Tells the server that the connection is from a webpage
+        getLabSize(); // Ask the server what the size of the classroom is upon connecting
     };
 
     webSocket.onmessage = function (event)
@@ -71,9 +73,6 @@ function openSocket()
         writeResponse("Connection closed");
     };
 
-    //TODO put this somewhere else because the socket is not technically open yet
-    //getLabSize(); // Ask the server what the size of the classroom is upon connecting
-    //webSocket.send("identify#webpage"); //Tells the server that the connection is from a webpage
 }
 
 /**
@@ -92,17 +91,67 @@ function closeSocket()
 
 function writeResponse(text)
 {
-
-    // Expect labSize message of form: 'labSize#rowNum#colNum'
-    if (text.contains("labSize#"))
+    if (text === undefined)
     {
-        var rowNum = 0;
+        return;
+    }
+    // Expect labSize message of form: 'labSize#rowNum#colNum'
+    if (text.indexOf("labSize#") > -1)
+    {
         var colNum = 0;
-        var splits = text.split("#");
-        splits[2] = rowNum;
-        splits[3] = colNum;
-        sizeParams.innerHTML = "Input a row between 1 and " + rowNum + 1 + " and a column between 1 and " + colNum + 1;
-
+        var rowNum = 0;
+        var divider = 0;
+        var params = text.split("#");
+        var splits = params[1].split(",");
+        colNum = parseInt(splits[0]) + parseInt(splits[2]) + 1;
+        rowNum = Math.max(splits[1], splits[3]);
+        divider = parseInt(splits[0]);
+        var rowRange = rowNum + 1;
+        var colRange = colNum + 1;
+        sizeParams.innerHTML = "Input a row between 1 and " + rowRange + " and a column between 1 and " + colRange;
+        createTable(colNum,rowNum,divider);
+        return;
     }
     messages.innerHTML += "<br/>" + text;
 }
+
+function createTable(numCols, numRows, divider) {
+    var table = document.getElementById("buttonTable");
+    //var numRows = 5;
+    //var numCols = 8;
+    //var divider = 4;
+    var seatNum = 1;
+    for (var i=0; i<numRows; i++){
+        var row = table.insertRow(i);
+        for (var j=0; j<numCols; j++){
+            var cell = row.insertCell(j);
+            if (j != divider) {
+                //var temp = document.createElement("BUTTON");
+                //temp.className = "button seatButton";
+                //var t = document.createTextNode("Seat #" + seatNum);
+                //temp.appendChild(t);
+                //var q = "#" + i + "#" + j;
+                //temp.onclick = function() {
+                //    sendPosition2(q);
+                //}
+                //cell.appendChild(temp);
+                //cell.innerHTML = "<button class=\"button seatButton\" onclick=\"sendPosition2('" + "#" + i + "#" + j + "');\">" + "Seat #" + seatNum + "</button>";
+                cell.innerHTML = "<button class=\"button seatButton\" onclick=\"setText('" +  i + "," + j + "');\">" + "Seat #" + seatNum + "</button>";
+                seatNum++;
+            }
+            else {
+                var temp = "<spacer></spacer>";
+                cell.innerHTML = temp;
+            }
+        }
+    }
+}
+
+function setText(coord)
+{
+    var row = coord.split(",")[0];
+    var col = coord.split(",")[1];
+    document.getElementById("classPosCol").value = col;
+    document.getElementById("classPosRow").value = row;
+}
+
