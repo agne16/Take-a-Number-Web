@@ -8,10 +8,10 @@ var sessionID = document.getElementById("sessionID").value;
 
 function sendPosition()
 {
-    webSocket.send("classPos#" + document.getElementById("studentID").value
-        + "#" + document.getElementById("sessionID").value
+    webSocket.send("classPos#" + document.getElementById("sessionID").value
+        + "#" + document.getElementById("studentID").value
         + "#" + document.getElementById("classPosRow").value)
-    + "#" + document.getElementById("classPosCol");
+        + "#" + document.getElementById("classPosCol");
 }
 
 function sendPosition2(param)
@@ -45,7 +45,7 @@ function openSocket()
         return;
     }
     // Create a new instance of the websocket
-    webSocket = new WebSocket("ws://192.168.1.144:8080");
+    webSocket = new WebSocket("ws://10.5.129.13:8080");
 
     /**
      * Binds functions to the listeners for the websocket.
