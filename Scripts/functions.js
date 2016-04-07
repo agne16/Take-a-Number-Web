@@ -46,6 +46,7 @@ function openSocket()
     }
     // Create a new instance of the websocket
     webSocket = new WebSocket("ws://10.5.129.13:8080");
+    //webSocket = new WebSocket("ws://10.17.141.39:8080");
 
     /**
      * Binds functions to the listeners for the websocket.
@@ -103,9 +104,9 @@ function writeResponse(text)
         var divider = 0;
         var params = text.split("#");
         var splits = params[1].split(",");
-        colNum = parseInt(splits[0]) + parseInt(splits[2]) + 1;
-        rowNum = Math.max(splits[1], splits[3]);
-        divider = parseInt(splits[0]);
+        colNum = parseInt(splits[1]) + parseInt(splits[3]) + 1;
+        rowNum = Math.max(splits[0], splits[2]);
+        divider = parseInt(splits[0]) - 1;
         var rowRange = rowNum + 1;
         var colRange = colNum + 1;
         sizeParams.innerHTML = "Input a row between 1 and " + rowRange + " and a column between 1 and " + colRange;
@@ -136,7 +137,14 @@ function createTable(numCols, numRows, divider) {
                 //}
                 //cell.appendChild(temp);
                 //cell.innerHTML = "<button class=\"button seatButton\" onclick=\"sendPosition2('" + "#" + i + "#" + j + "');\">" + "Seat #" + seatNum + "</button>";
-                cell.innerHTML = "<button class=\"button seatButton\" onclick=\"setText('" +  i + "," + j + "');\">" + "Seat #" + seatNum + "</button>";
+                var rowVal = i;
+                var colVal = j;
+                if (colVal > divider)
+                {
+                    colVal = colVal - 1;
+                }
+
+                cell.innerHTML = "<button class=\"button seatButton\" onclick=\"setText('" +  rowVal + "," + colVal + "');\">" + "Seat #" + seatNum + "</button>";
                 seatNum++;
             }
             else {
