@@ -8,39 +8,47 @@
 </head>
 <body>
 
-<h1>Take a Number</h1>
-<h5>
+<t1>Take a Number</t1>
+
+<spacer class = "smallSpace"></spacer>
+
+<t2>
     1. Click Open Connection <br>
     2. Enter your StudentID and the provided SessionID <br>
-    3. Input Your Position in the Classroom (e.g. Row: 3 Column: 2) <br>
+    3. Input Your Position in the Classroom (e.g. Row: 3 Column: 2) or use the appropriate seat button <br>
     4. Click the Send Position button to confirm your seating position. <br>
     5. Use the Enter and Leave Queue buttons as necessary
-</h5>
+</t2>
 
+<spacer class = "smallSpace"></spacer>
 
 <table id="buttonTable">
 </table>
 
+<spacer class = "smallSpace"></spacer>
+
 <div>
+    <t2>
     StudentID:
-    <input type="text" id="studentID"/>
+    <input type="text" class = "inputType" id="studentID"/>
     <br> SessionID:
-    <input type="text" id="sessionID"/>
+    <input type="text" class = "inputType" id="sessionID"/>
     <br><br> <u>Classroom Position</u> <br>
-    Row: <input type="text" id="classPosRow"/>
-    Column: <input type="text" id="classPosCol"/> <br>
+    Row: <input type="text" class = "inputType" id="classPosRow"/>
+    Column: <input type="text" class = "inputType" id="classPosCol"/> <br>
     <br> Classroom Parameters:
     <div id="sizeParams"></div>
     <br>
+    </t2>
     <!--<input type="text" id="messageinput"/>-->
 </div>
 <div>
     <br>
-    <button type="button" onclick="enterQueue();">Enter Queue</button>
-    <button type="button" onclick="leaveQueue();">Leave Queue</button>
+    <button type="button" class = "button textButton" onclick="enterQueue();">Enter Queue</button>
+    <button type="button" class = "button textButton" onclick="leaveQueue();">Leave Queue</button>
     <br>
-    <button type="button" onclick="openSocket();">Open Connection</button>
-    <button type="button" onclick="sendPosition();">Send Position</button>
+    <button type="button" class = "button textButton" onclick="openSocket();">Open Connection</button>
+    <button type="button" class = "button textButton" onclick="sendPosition();">Send Position</button>
     <!--<button type="button" onclick="send();">Send</button>
     <button type="button" onclick="closeSocket();">Close</button>-->
 </div>
